@@ -179,7 +179,6 @@ function createButtonArea() {
                 break;
             }
         }
-
         $ (`#${nButton.id}`).attr ("onclick", "pressButton(this.id)");
 
     }
