@@ -80,7 +80,7 @@ class AButton {
             _element.css ({ "backgroundColor": "#5a5a5a" });
             // console.log (`Зависимые элементы для ${this.idButton} - ${this._dependent}`);
             for ( let offen of this._dependent ) {
-                if (buttonArea[offen] != undefined) {
+                if (buttonArea[offen] !== undefined) {
                     if (buttonArea[offen].state) {
                         buttonArea[offen].in_state (false);  // Выключим зависимые кнопки
                     }
@@ -116,7 +116,7 @@ class AButton {
 
     setParameter() {
         if (this._parametr.length > 0) {
-            const _param = this._parametr[0], _defauld = this._parametr[1], _custom = this._parametr[2]
+            const _param = this._parametr[0], _defauld = this._parametr[1], _custom = this._parametr[2];
             if (this._state) {
                 $ ('#inputLettering').css (_param, _custom);
                 $ ("#lettering").css (_param, _custom);
@@ -184,18 +184,12 @@ function createButtonArea() {
 
     }
 }
-
 // ---- Игры с ООП End --------------
-
-function testFunction() {
-
-}
 
 $ (document).ready (function () {
     createButtonArea (); // ---- Игры с ООП
     let countPress = 0;
     buttonArea['textAlign_C'].press ();
-
     changeColor ();
 
     // Drag-and-Drop Text begin
@@ -257,10 +251,10 @@ $ (document).ready (function () {
             if (countPress > 1) {
                 dragElement.classList.toggle ('sizegable');
             } else if (dragElement.classList.contains ('sizegable')) {
-                return;
+                // return;
             } else {
                 if (!dragElement.classList.contains ('draggable')) return;
-                var coords, shiftX, shiftY;
+                let shiftX, shiftY; //coords,
                 startDrag (e.clientX, e.clientY);
                 document.onmousemove = function (e) {
                     moveAt (e.clientX, e.clientY);
@@ -271,38 +265,29 @@ $ (document).ready (function () {
 
                 // -------------------------
                 function startDrag(clientX, clientY) {
-
                     shiftX = clientX - dragElement.getBoundingClientRect ().left;
                     shiftY = clientY - dragElement.getBoundingClientRect ().top;
-
                     dragElement.style.position = 'fixed';
-
                     document.body.appendChild (dragElement);
-
                     moveAt (clientX, clientY);
-                };
+                }
 
                 function finishDrag() {
                     // конец переноса,
-                    //
-
                     // проверяем вынесение за пределы main
-                    let divMain = $('#main');
+                    let divMain = $ ('#main');
                     let positionMain = divMain.offset ();
                     let _top = positionMain['top'], _left = positionMain['left'];
                     let _bottop = _top + divMain.height (), _right = _left + divMain.width ();
                     let _x = dragElement.offsetLeft, _y = dragElement.offsetTop;
                     if (_x < _left || _x > _right || _y < _top || _y > _bottop) {       // Вне поля Main
-                        console.log ('Out of Main');
+                        // console.log ('Out of Main');
                         // убираем позиционирование
-                        // вставляем а imgBank
-                        //dragElement.css({'top': '', 'left': '', 'position': ''});
-                        // dragElement.css({'top': 'auto'});
-                        // dragElement.style.position = 'fixed';
                         dragElement.style.left = 'auto';
-                        dragElement.style.top  = 'auto';
+                        dragElement.style.top = 'auto';
                         dragElement.style.position = 'static';
-                        document.getElementById("imgBank").appendChild(dragElement);
+                        // вставляем а imgBank
+                        document.getElementById ("imgBank").appendChild (dragElement);
                         // $('#imgBank').appendChild (dragElement);
 
                     } else {                                                            // Внутри поля Main
@@ -316,19 +301,19 @@ $ (document).ready (function () {
 
                 function moveAt(clientX, clientY) {
                     // новые координаты
-                    var newX = clientX - shiftX;
-                    var newY = clientY - shiftY;
+                    let newX = clientX - shiftX;
+                    let newY = clientY - shiftY;
                     // ------- обработаем вынос за нижнюю границу окна ------
                     // новая нижняя граница элемента
-                    var newBottom = newY + dragElement.offsetHeight;
+                    let newBottom = newY + dragElement.offsetHeight;
                     // если новая нижняя граница вылезает вовне окна - проскроллим его
                     if (newBottom > document.documentElement.clientHeight) {
                         // координата нижней границы документа относительно окна
-                        var docBottom = document.documentElement.getBoundingClientRect ().bottom;
+                        let docBottom = document.documentElement.getBoundingClientRect ().bottom;
                         // scrollBy, если его не ограничить - может заскроллить за текущую границу документа
                         // обычно скроллим на 10px
                         // но если расстояние от newBottom до docBottom меньше, то меньше
-                        var scrollY = Math.min (docBottom - newBottom, 10);
+                        let scrollY = Math.min (docBottom - newBottom, 10);
                         // ошибки округления при полностью прокрученной странице
                         // могут привести к отрицательному scrollY, что будет означать прокрутку вверх
                         // поправим эту ошибку
@@ -342,7 +327,7 @@ $ (document).ready (function () {
                     // ------- обработаем вынос за верхнюю границу окна ------
                     if (newY < 0) {
                         // проскроллим вверх на 10px, либо меньше, если мы и так в самом верху
-                        var scrollY = Math.min (-newY, 10);
+                        let scrollY = Math.min (-newY, 10);
                         if (scrollY < 0) scrollY = 0; // поправим ошибку округления
 
                         window.scrollBy (0, -scrollY);
@@ -376,7 +361,7 @@ $ (document).ready (function () {
         }).removeAttr ('data-autoresize');
     })
 
-})
+});
 
 
 
