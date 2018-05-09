@@ -80,7 +80,7 @@ class AButton {
             _element.css ({ "backgroundColor": "#5a5a5a" });
             // console.log (`Зависимые элементы для ${this.idButton} - ${this._dependent}`);
             for ( let offen of this._dependent ) {
-                if (buttonArea[offen] !== undefined) {
+                if (buttonArea[offen] != undefined) {
                     if (buttonArea[offen].state) {
                         buttonArea[offen].in_state (false);  // Выключим зависимые кнопки
                     }
@@ -179,16 +179,19 @@ function createButtonArea() {
                 break;
             }
         }
+
         $ (`#${nButton.id}`).attr ("onclick", "pressButton(this.id)");
 
     }
 }
+
 // ---- Игры с ООП End --------------
 
 $ (document).ready (function () {
     createButtonArea (); // ---- Игры с ООП
     let countPress = 0;
     buttonArea['textAlign_C'].press ();
+
     changeColor ();
 
     // Drag-and-Drop Text begin
@@ -253,7 +256,7 @@ $ (document).ready (function () {
                 // return;
             } else {
                 if (!dragElement.classList.contains ('draggable')) return;
-                let shiftX, shiftY; //coords,
+                let shiftX, shiftY; // coords,
                 startDrag (e.clientX, e.clientY);
                 document.onmousemove = function (e) {
                     moveAt (e.clientX, e.clientY);
@@ -264,29 +267,38 @@ $ (document).ready (function () {
 
                 // -------------------------
                 function startDrag(clientX, clientY) {
+
                     shiftX = clientX - dragElement.getBoundingClientRect ().left;
                     shiftY = clientY - dragElement.getBoundingClientRect ().top;
+
                     dragElement.style.position = 'fixed';
+
                     document.body.appendChild (dragElement);
+
                     moveAt (clientX, clientY);
                 }
 
                 function finishDrag() {
                     // конец переноса,
+                    //
+
                     // проверяем вынесение за пределы main
-                    let divMain = $ ('#main');
+                    let divMain = $('#main');
                     let positionMain = divMain.offset ();
                     let _top = positionMain['top'], _left = positionMain['left'];
                     let _bottop = _top + divMain.height (), _right = _left + divMain.width ();
                     let _x = dragElement.offsetLeft, _y = dragElement.offsetTop;
                     if (_x < _left || _x > _right || _y < _top || _y > _bottop) {       // Вне поля Main
-                        // console.log ('Out of Main');
+                        console.log ('Out of Main');
                         // убираем позиционирование
-                        dragElement.style.left = 'auto';
-                        dragElement.style.top = 'auto';
-                        dragElement.style.position = 'static';
                         // вставляем а imgBank
-                        document.getElementById ("imgBank").appendChild (dragElement);
+                        //dragElement.css({'top': '', 'left': '', 'position': ''});
+                        // dragElement.css({'top': 'auto'});
+                        // dragElement.style.position = 'fixed';
+                        dragElement.style.left = 'auto';
+                        dragElement.style.top  = 'auto';
+                        dragElement.style.position = 'static';
+                        document.getElementById("imgBank").appendChild(dragElement);
                         // $('#imgBank').appendChild (dragElement);
 
                     } else {                                                            // Внутри поля Main
@@ -361,7 +373,3 @@ $ (document).ready (function () {
     })
 
 });
-
-
-
-
