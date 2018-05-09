@@ -278,10 +278,8 @@ $ (document).ready (function () {
 
                 function finishDrag() {
                     // конец переноса,
-                    //
-
                     // проверяем вынесение за пределы main
-                    let divMain = $('#main');
+                    let divMain = $ ('#main');
                     let positionMain = divMain.offset ();
                     let _top = positionMain['top'], _left = positionMain['left'];
                     let _bottop = _top + divMain.height (), _right = _left + divMain.width ();
@@ -294,9 +292,9 @@ $ (document).ready (function () {
                         // dragElement.css({'top': 'auto'});
                         // dragElement.style.position = 'fixed';
                         dragElement.style.left = 'auto';
-                        dragElement.style.top  = 'auto';
+                        dragElement.style.top = 'auto';
                         dragElement.style.position = 'static';
-                        document.getElementById("imgBank").appendChild(dragElement);
+                        document.getElementById ("imgBank").appendChild (dragElement);
                         // $('#imgBank').appendChild (dragElement);
 
                     } else {                                                            // Внутри поля Main
