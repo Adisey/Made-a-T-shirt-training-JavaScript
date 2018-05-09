@@ -1,6 +1,5 @@
 let buttonArea = {};
 
-
 function changeColor() {
     let _color = $ ("#selectColor").val ();
     $ ("#lettering").css ("background-color", _color);
