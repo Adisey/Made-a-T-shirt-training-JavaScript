@@ -126,10 +126,13 @@ class AButton {
             }
         }
     }
-
-
 }
 
+function pressButton(idButton) {
+    // console.log(`${idButton} ${buttonArea[idButton].state}`);
+    buttonArea[idButton].press ();
+    // console.log(`${idButton} ${buttonArea[idButton].state}`);
+}
 
 function createButtonArea() {
     for ( let nButton of $ ('.panelFontType .buttonFontType') ) {
